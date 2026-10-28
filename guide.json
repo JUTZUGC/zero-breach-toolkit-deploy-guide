@@ -1,0 +1,107 @@
+{
+  "owner": "JUTZUGC",
+  "code": "JUTZUGC",
+  "project": {
+    "key": "zerobreach",
+    "nameCn": "Zero Breach Toolkit",
+    "repoName": "zero-breach-toolkit-deploy-guide",
+    "oneLiner": "1.9k stars，Apache-2.0，离线只读的间谍软件痕迹排查工具",
+    "officialRepo": "https://github.com/interplains/Zero-Breach-Toolkit",
+    "officialDocs": "https://github.com/interplains/Zero-Breach-Toolkit/blob/main/README.md",
+    "stars": "1.9k",
+    "license": "Apache-2.0",
+    "highlights": [
+      "只读扫描：不改系统设置，不动原始证据",
+      "离线检查：扫描期间不发网络请求，不上传数据",
+      "覆盖多设备：Windows、macOS、Android 手机与 iPhone 备份",
+      "证据分级：报告写明发现了什么、强度如何、哪些没查",
+      "可分享报告：支持 JSON 与最小化分享摘要",
+      "开源可审计：Apache-2.0，单文件脚本可自行检查"
+    ],
+    "mcpSupport": "Zero Breach Toolkit 不含 MCP；本仓库的 MCP 只提供安装步骤、扫描选项与常见问题。",
+    "webuiUrl": "",
+    "adapterPorts": "",
+    "collectedAt": "2026-10-28",
+    "verification": [
+      [
+        "Release v0.1.7 的扫描器已下载，SHA256 与 SHA256SUMS 一致（937.5 KB）",
+        "已核对 2026-10-28"
+      ],
+      [
+        "python zero-breach-toolkit.py --help 可正常输出参数说明",
+        "已验证 2026-10-28"
+      ],
+      [
+        "未执行完整扫描（本机标准检查约 15 分钟）",
+        "说明 2026-10-28"
+      ],
+      [
+        "非目标宿主调用被拦截（HOST_NOT_ALLOWED）",
+        "已验证 2026-10-28"
+      ]
+    ],
+    "deploy": {
+      "type": "script",
+      "requires": [
+        "python"
+      ],
+      "steps": [
+        "curl -fL -O https://github.com/interplains/Zero-Breach-Toolkit/releases/download/v0.1.7/zero-breach-toolkit.py",
+        "curl -fL -O https://github.com/interplains/Zero-Breach-Toolkit/releases/download/v0.1.7/SHA256SUMS.txt",
+        "expected=$(grep ' zero-breach-toolkit.py$' SHA256SUMS.txt | awk '{print $1}') ; if command -v sha256sum >/dev/null 2>&1; then echo \"$expected  zero-breach-toolkit.py\" | sha256sum -c - ; else echo \"$expected  zero-breach-toolkit.py\" | shasum -a 256 -c - ; fi",
+        "PY=$(command -v python3 || command -v python) ; \"$PY\" zero-breach-toolkit.py"
+      ],
+      "stepsPs": [
+        "curl.exe -L --fail -O https://github.com/interplains/Zero-Breach-Toolkit/releases/download/v0.1.7/zero-breach-toolkit.py",
+        "curl.exe -L --fail -O https://github.com/interplains/Zero-Breach-Toolkit/releases/download/v0.1.7/SHA256SUMS.txt",
+        "$expected = ((Select-String -Path SHA256SUMS.txt -Pattern 'zero-breach-toolkit.py').Line -split '\\s+')[0].ToLower() ; $actual = (Get-FileHash zero-breach-toolkit.py -Algorithm SHA256).Hash.ToLower() ; if ($actual -ne $expected) { throw 'SHA256 校验失败，请重新下载' }",
+        "python zero-breach-toolkit.py"
+      ],
+      "source": "https://github.com/interplains/Zero-Breach-Toolkit/releases/tag/v0.1.7"
+    },
+    "pitfalls": [
+      "Windows 找不到 python：安装 Python 时勾选 Add python.exe to PATH",
+      "卡在更新指标：确认网络可用；扫描本身不联网，但更新列表需要",
+      "macOS 查不到 Safari 记录：给终端开完全磁盘访问权限",
+      "结果里有很多「未检查」：这是正常输出，说明能力边界，不代表设备有问题",
+      "手机连不上：Android 需要开启 USB 调试并授权；iPhone 走备份检查",
+      "报告含敏感信息：对外分享用 --share-json，不要直接发完整报告",
+      "怀疑正在被攻击：先联系专业援助机构，再考虑自行扫描"
+    ]
+  },
+  "gate": {
+    "allow": [
+      "dumate"
+    ],
+    "label": "百度搭子",
+    "url": "https://www.dumate.cn/",
+    "guideUrl": "https://github.com/JUTZUGC/zero-breach-toolkit-deploy-guide",
+    "howToFix": [
+      "1. 打开 https://www.dumate.cn/ ，下载并安装「百度搭子」电脑端（Windows / macOS）",
+      "2. 用账号登录",
+      "3. 在对话窗口发送：你好，帮我从 github 部署 JUTZUGC/zero-breach-toolkit-deploy-guide 到我的电脑上",
+      "4. 部署完成后，在同一对话窗口里继续使用"
+    ],
+    "hint": "请改用「百度搭子」部署后再使用；本工具没有网页版入口。",
+    "onError": "allow"
+  },
+  "keywords": [
+    "Zero Breach Toolkit",
+    "间谍软件 检测",
+    "Pegasus 检测",
+    "手机 安全 扫描",
+    "离线 安全工具",
+    "iPhone 备份 检查",
+    "Android 间谍软件",
+    "数字安全 自检",
+    "Zero Breach 教程",
+    "zero breach deploy guide"
+  ],
+  "topics": [
+    "security",
+    "privacy",
+    "spyware",
+    "python",
+    "forensics"
+  ]
+}
